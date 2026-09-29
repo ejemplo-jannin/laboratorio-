@@ -17,5 +17,5 @@ jobs:
           curl -u ":$AZDO_PAT" \
             -X POST \
             -H "Content-Type: application/json" \
-            "https://dev.azure.com/pruebas-proyecto/test-plans/_apis/pipelines/PIPELINE_ID/runs?api-version=7.1" \
+            "https://dev.azure.com/pruebas-proyecto/test-plans/_apis/pipelines/1/runs?api-version=7.1" \
             -d '{}'

@@ -1,0 +1,21 @@
+name: Trigger Azure DevOps Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger-azure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Azure DevOps
+        env:
+          AZDO_PAT: ${{ secrets.AZDO_PAT }}
+        run: |
+          curl -u ":$AZDO_PAT" \
+            -X POST \
+            -H "Content-Type: application/json" \
+            "https://dev.azure.com/pruebas-proyecto/test-plans/_apis/pipelines/PIPELINE_ID/runs?api-version=7.1" \
+            -d '{}'

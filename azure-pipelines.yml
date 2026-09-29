@@ -1,0 +1,21 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- checkout: self
+
+- script: |
+    docker build -t mini-docker-page:$(Build.BuildId) .
+  displayName: 'Build Docker image'
+
+- script: |
+    docker run -d --name app -p 8080:80 mini-docker-page:$(Build.BuildId)
+    sleep 2
+
+    curl -fsS http://localhost:8080/ | grep -q "Hola, Jannin"
+
+    docker stop app
+    docker rm app
+  displayName: 'Run container smoke test'
